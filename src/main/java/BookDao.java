@@ -27,10 +27,10 @@ public class BookDao {
         prepaState.executeUpdate();
     }
 
-    public Book read(int id) throws SQLException {
-        final String sql = "select id,title,author,year,isbn from books where id = ?";
+    public String read(long isbn) throws SQLException {
+        final String sql = "select id,title,author,year,isbn from books where isbn = ?";
         PreparedStatement prepState = connection.prepareStatement(sql);
-        prepState.setInt(1, id);
+        prepState.setLong(1, isbn);
         ResultSet resultSet = prepState.executeQuery();
         if (resultSet.next()) {
             Book book = new Book();
@@ -38,9 +38,11 @@ public class BookDao {
             book.setTitle(resultSet.getString("title"));
             book.setAuthor(resultSet.getString("author"));
             book.setYear(resultSet.getInt("year"));
-            book.setIsbn(resultSet.getInt("isbn"));
-            return book;
+            book.setIsbn(resultSet.getLong("isbn"));
+
+            System.out.println(book);
         }
+
         return null;
     }
 
