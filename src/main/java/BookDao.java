@@ -49,18 +49,18 @@ public class BookDao {
     public void update(Book book) throws SQLException {
         final String sql = "update books set id=?, title=?, author=?,year=?,isbn? where id=?";
         PreparedStatement prepState = connection.prepareStatement(sql);
-        prepState.setInt(1,book.getID());
-        prepState.setString(2,book.getTitle());
-        prepState.setString(3,book.getAuthor());
-        prepState.setInt(4,book.getYear());
-        prepState.setLong(5,book.getIsbn());
+        prepState.setInt(1, book.getID());
+        prepState.setString(2, book.getTitle());
+        prepState.setString(3, book.getAuthor());
+        prepState.setInt(4, book.getYear());
+        prepState.setLong(5, book.getIsbn());
         prepState.executeUpdate();
     }
 
     public void delete(int id) throws SQLException {
         final String sql = "delete from books where id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
     }
 }

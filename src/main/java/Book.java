@@ -6,7 +6,7 @@ public class Book {
     private int year;
     private long isbn;
 
-    public Book(){
+    public Book() {
 
     }
 
