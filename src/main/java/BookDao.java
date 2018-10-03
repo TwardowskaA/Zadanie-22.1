@@ -8,7 +8,7 @@ public class BookDao {
     private Connection connection;
 
     public BookDao() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(URL, USER, PASS);
     }
 
@@ -27,7 +27,7 @@ public class BookDao {
         prepaState.executeUpdate();
     }
 
-    public String read(long isbn) throws SQLException {
+    public Book read(long isbn) throws SQLException {
         final String sql = "select id,title,author,year,isbn from books where isbn = ?";
         PreparedStatement prepState = connection.prepareStatement(sql);
         prepState.setLong(1, isbn);
@@ -39,15 +39,14 @@ public class BookDao {
             book.setAuthor(resultSet.getString("author"));
             book.setYear(resultSet.getInt("year"));
             book.setIsbn(resultSet.getLong("isbn"));
-
-            System.out.println(book);
+            return book;
         }
 
         return null;
     }
 
     public void update(Book book) throws SQLException {
-        final String sql = "update books set id=?, title=?, author=?,year=?,isbn? where id=?";
+        final String sql = "update books set title=?, author=?,year=?,isbn=? where id=?";
         PreparedStatement prepState = connection.prepareStatement(sql);
         prepState.setInt(1, book.getID());
         prepState.setString(2, book.getTitle());
